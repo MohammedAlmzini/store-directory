@@ -54,11 +54,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // إذا كان البريد الإلكتروني ينتهي بـ @smail.ucas.edu.ps، فإن الدور هو مسؤول
         if (str_ends_with($data['email'], '@smail.ucas.edu.ps')) {
             $role = 'admin';
         } else {
-            // استخدام الدور المحدد من النموذج أو 'user' افتراضيًا
             $role = $data['role'] ?? 'user';
         }
         

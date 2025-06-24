@@ -190,7 +190,13 @@ class StoreController extends Controller
             ->with('success', 'تم حذف المتجر بنجاح.');
     }
     
- 
+    /**
+     * Update store status (Admin only).
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Store  $store
+     * @return \Illuminate\Http\Response
+     */
     public function updateStatus(Request $request, Store $store)
     {
         if (Auth::user()->role != 'admin') {
@@ -206,5 +212,25 @@ class StoreController extends Controller
         
         return redirect()->back()
             ->with('success', 'تم تحديث حالة المتجر بنجاح.');
+    }
+
+    /**
+     * Display the current user's store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myStore()
+    {
+        $store = Store::where('user_id', Auth::id())->first();
+        
+        if (!$store) {
+            return redirect()->route('stores.create')
+                ->with('info', 'لم تقم بإنشاء متجر بعد. يمكنك إنشاء متجر جديد هنا.');
+        }
+        
+        $products = $store->products()->latest()->paginate(8);
+        $reviews = $store->reviews()->with('user')->latest()->get();
+        
+        return view('stores.my-store', compact('store', 'products', 'reviews'));
     }
 }

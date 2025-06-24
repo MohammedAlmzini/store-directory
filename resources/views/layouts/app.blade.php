@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ config('app.name', 'دليل المتاجر المحلية') }}</title>
     
-    <!-- Bootstrap RTL CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css">
     
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -47,7 +45,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">دليل المتاجر المحلية</a>
@@ -132,37 +129,37 @@
                                             إدارة الفئات
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-store me-2"></i>
-                                            إدارة المتاجر
+                                 <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('admin.stores') ? 'active' : '' }}" href="{{ route('admin.stores') }}">
+                                        <i class="fas fa-store me-2"></i>إدارة المتاجر
                                         </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-users me-2"></i>
-                                            إدارة المستخدمين
-                                        </a>
-                                    </li>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link {{ request()->routeIs('admin.users') ? 'active' : '' }}" href="{{ route('admin.users') }}">
+                                                <i class="fas fa-users me-2"></i> إدارة المستخدمين 
+                                            </a>
+                                        </li>
+
                                 @elseif(Auth::user()->role === 'vendor')
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-store me-2"></i>
-                                            متجري
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-box me-2"></i>
-                                            المنتجات
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            <i class="fas fa-star me-2"></i>
-                                            التقييمات
-                                        </a>
-                                    </li>
+                                <li class="nav-item">
+                                     <a class="nav-link {{ request()->routeIs('vendor.store') ? 'active' : '' }}" href="{{ route('vendor.store') }}">
+                                        <i class="fas fa-store me-2"></i>
+                                        متجري
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('vendor.products') ? 'active' : '' }}" href="{{ route('vendor.products') }}">
+                                        <i class="fas fa-box me-2"></i>
+                                        المنتجات
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('vendor.reviews') ? 'active' : '' }}" href="{{ route('vendor.reviews') }}">
+                                        <i class="fas fa-star me-2"></i>
+                                        التقييمات
+                                    </a>
+                                </li>
+
                                 @else
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('favorites.index') }}">
@@ -171,19 +168,18 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">
+                                        <a class="nav-link" href="{{ route('user.reviews') }}">
                                             <i class="fas fa-star me-2"></i>
                                             تقييماتي
                                         </a>
                                     </li>
                                 @endif
-                                
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
+                                    <a class="nav-link {{ request()->routeIs('account.settings') ? 'active' : '' }}" href="{{ route('account.settings') }}">
                                         <i class="fas fa-user-cog me-2"></i>
-                                        إعدادات الحساب
-                                    </a>
-                                </li>
+                                         إعدادات الحساب
+                                        </a>
+                                    </li>
                             </ul>
                         </div>
                     </div>
@@ -204,7 +200,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

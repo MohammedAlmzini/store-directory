@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'is_banned',
     ];
 
     /**
@@ -41,6 +42,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_banned' => 'boolean',
     ];
  
     public function store()
@@ -68,5 +70,10 @@ class User extends Authenticatable
     public function isVendor()
     {
         return $this->role === 'vendor';
+    }
+    
+    public function isBanned()
+    {
+        return $this->is_banned;
     }
 }

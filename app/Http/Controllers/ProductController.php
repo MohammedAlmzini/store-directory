@@ -80,7 +80,6 @@ class ProductController extends Controller
         $data = $request->all();
         $data['store_id'] = $store->id;
         
-        // معالجة الصورة إذا تم تحميلها
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('product_images', 'public');
         }
@@ -180,5 +179,27 @@ class ProductController extends Controller
         
         return redirect()->route('products.index')
             ->with('success', 'تم حذف المنتج بنجاح.');
+    }
+
+    /**
+     * Display products for the vendor's store.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function vendorProducts()
+    {
+        $store = Store::where('user_id', Auth::id())->first();
+        
+        if (!$store) {
+            return redirect()->route('stores.create')
+                ->with('info', 'يجب إنشاء متجر أولاً قبل إضافة المنتجات.');
+        }
+        
+        $products = Product::where('store_id', $store->id)
+            ->with('category')
+            ->latest()
+            ->paginate(10);
+        
+        return view('vendor.products', compact('products', 'store'));
     }
 }
