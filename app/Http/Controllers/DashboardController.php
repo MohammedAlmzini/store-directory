@@ -42,11 +42,8 @@ class DashboardController extends Controller
         $products = $store ? \App\Models\Product::where('store_id', $store->id)->get() : [];
         $reviews = $store ? \App\Models\Review::where('store_id', $store->id)->get() : [];
         
-        // رابط معدل لصفحة لوحة تحكم صاحب المتجر، يمكن تغييره إلى الصفحة الجديدة إذا رغبت
         return view('dashboard.vendor', compact('store', 'products', 'reviews'));
         
-        // أو استخدام الصفحة الجديدة
-        // return redirect()->route('vendor.store');
     }
     
     private function userDashboard()
