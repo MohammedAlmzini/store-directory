@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('contact_info')->nullable();
             $table->string('city')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

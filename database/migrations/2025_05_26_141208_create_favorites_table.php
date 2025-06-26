@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('store_id')->constrained()->onDelete('cascade');
             $table->timestamps();
-            
+            $table->timestamp('expires_at')->nullable();
             $table->unique(['user_id', 'store_id']);
         });
     }
